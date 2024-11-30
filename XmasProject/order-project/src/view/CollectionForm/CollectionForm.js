@@ -12,6 +12,8 @@ import "./CollectionForm.css";
 import CheckIcon from "../../asset/checkIcon.png";
 import { data } from "autoprefixer";
 import moment from "moment";
+/* eslint-disable */
+
 
 const CustomerForm = () => {
 
