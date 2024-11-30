@@ -174,8 +174,12 @@ const CustomerForm = () => {
           ortLieferung:formData.user.ortLieferung ,
 
 
-        }
-      );
+        },{
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true, // Nếu bạn đang sử dụng cookie hoặc yêu cầu xác thực
+          })
       console.log(data);
 
       setBoxAdd(true);
