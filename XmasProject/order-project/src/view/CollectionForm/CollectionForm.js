@@ -175,9 +175,9 @@ const CustomerForm = () => {
 
 
         },{
-            headers: {
-              'Content-Type': 'application/json',
-            },
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
             withCredentials: true, // Nếu bạn đang sử dụng cookie hoặc yêu cầu xác thực
           })
       console.log(data);
