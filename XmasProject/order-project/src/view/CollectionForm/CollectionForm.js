@@ -144,7 +144,8 @@ const CustomerForm = () => {
 
     try {
       const { data } = await axios.post(
-        "https://quang-be.vercel.app/create-customer",
+        // "https://quang-be.vercel.app/create-customer",
+        "http://localhost:3001/create-customer",
         {
           firstName: formData.user.first_name,
           lastName: formData.user.last_name,
@@ -174,12 +175,7 @@ const CustomerForm = () => {
           ortLieferung:formData.user.ortLieferung ,
 
 
-        },{
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-            withCredentials: true, // Nếu bạn đang sử dụng cookie hoặc yêu cầu xác thực
-          })
+        })
       console.log(data);
 
       setBoxAdd(true);
