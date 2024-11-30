@@ -144,8 +144,8 @@ const CustomerForm = () => {
 
     try {
       const { data } = await axios.post(
-        // "https://quang-be.vercel.app/create-customer",
-        "http://localhost:3001/create-customer",
+        "https://quang-be.vercel.app/create-customer",
+        // "http://localhost:3001/create-customer",
         {
           firstName: formData.user.first_name,
           lastName: formData.user.last_name,
