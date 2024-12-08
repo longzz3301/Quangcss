@@ -20,6 +20,7 @@ const CustomerForm = () => {
   const [listOrder, setListOrder] = useState();
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState(false);
+  const [branchError, setBranchError] = useState("");
   const [formData, setFormData] = useState({
     user: {
       first_name: "",
@@ -130,13 +131,22 @@ const CustomerForm = () => {
       }));
     }
   };
+
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Add branch validation
+    if (!formData.user.branch) {
+      setBranchError("Bitte wählen Sie eine Lieferoption aus");
+      return;
+    }
+
     if (!formData.agreement) {
-      // Handle the case when the agreement is not accepted
       console.log("Please accept all terms and conditions.");
       return;
     }
+    
     setLoading(true);
     // console.log('data :' ,data)
     console.log("data :", formData);
@@ -144,7 +154,7 @@ const CustomerForm = () => {
 
     try {
       const { data } = await axios.post(
-        "https://quang-be.vercel.app/create-customer",
+         "https://quang-be.vercel.app/create-customer",
         // "http://localhost:3001/create-customer",
         {
           firstName: formData.user.first_name,
@@ -393,13 +403,13 @@ const CustomerForm = () => {
           {/* Radio buttons cho Chi nhánh A, B, C */}
           <div className="flex flex-col gap-2">
             <label className="text-textColor font-semibold text-lg">
-              Lieferoptionen :
+              Lieferoptionen* :
             </label>
             <div className="flex flex-wrap gap-2">
               {branches.map((branch, index) => (
                 <label
                   key={index}
-                  className=" text-textColor flex items-center space-x-2"
+                  className="text-textColor flex items-center space-x-2"
                 >
                   <input
                     type="radio"
@@ -408,22 +418,14 @@ const CustomerForm = () => {
                     checked={formData.user.branch === branch.name}
                     onChange={handleChange}
                     className="form-radio text-blue-500"
+                    required
                   />
                   <span>{branch.name}</span>
                 </label>
               ))}
-              {/* Radio cho phép nhập text */}
-              {/* <label className="text-textColor flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="branch"
-                  value="other"
-                  checked={formData.user.branch === "other"}
-                  onChange={handleChange}
-                  className="form-radio text-blue-500"
-                />
-                <span>Lieferung </span>
-              </label> */}
+              {branchError && (
+                <span className="text-red-500 text-sm">{branchError}</span>
+              )}
             </div>
           </div>
 
@@ -591,6 +593,32 @@ const CustomerForm = () => {
               // placeholder="Geben Sie Ihre Adresse ein"
               />
 
+<label className=" text-textColor font-Montserrat text-lg">
+                PLZ & ORT :
+              </label>
+              <div className="flex items-center gap-5">
+                <input
+                  type="text"
+                  id="plzLieferung"
+                  name="plzLieferung"
+                  value={formData.user.plzLieferung}
+                  onChange={handleChange}
+                  required
+                  className="w-2/5  placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
+                // placeholder="Geben Sie Ihre Adresse ein"
+                />
+                <input
+                  type="text"
+                  id="ortLieferung"
+                  name="ortLieferung"
+                  value={formData.user.ortLieferung}
+                  onChange={handleChange}
+                  required
+                  className="w-3/5 placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
+                // placeholder="Geben Sie Ihre Adresse ein"
+                />
+              </div>
+
               <label className=" text-textColor font-Montserrat text-lg">
                 Gewünschter Liefertermin
               </label>
@@ -641,31 +669,7 @@ const CustomerForm = () => {
                 ))}
               </select>
 
-              <label className=" text-textColor font-Montserrat text-lg">
-                PLZ & ORT :
-              </label>
-              <div className="flex items-center gap-5">
-                <input
-                  type="text"
-                  id="plzLieferung"
-                  name="plzLieferung"
-                  value={formData.user.plzLieferung}
-                  onChange={handleChange}
-                  required
-                  className="w-2/5  placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
-                />
-                <input
-                  type="text"
-                  id="ortLieferung"
-                  name="ortLieferung"
-                  value={formData.user.ortLieferung}
-                  onChange={handleChange}
-                  required
-                  className="w-3/5 placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
-                />
-              </div>
+           
 
               <label className=" text-textColor font-Montserrat text-lg">
                 Land{" "}

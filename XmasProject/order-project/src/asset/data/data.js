@@ -29,6 +29,7 @@ export const pickUpDate = [
     { date: new Date(2024, 11, 8) },
     { date: new Date(2024, 11, 15) },
     { date: new Date(2024, 11, 22) },
+    { date: new Date(2024, 11, 24) },
     // { date: new Date(2024, 11, 25) },
   ];
   
