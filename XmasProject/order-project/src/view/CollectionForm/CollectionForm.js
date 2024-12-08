@@ -529,7 +529,6 @@ const CustomerForm = () => {
                 name="titel"
                 value={formData.user.titel}
                 onChange={handleChange}
-                required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
                 placeholder=""
               />
@@ -621,7 +620,6 @@ const CustomerForm = () => {
                 name="adresszusatzLieferung"
                 value={formData.user.adresszusatzLieferung}
                 onChange={handleChange}
-                required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
                 // placeholder="Geben Sie Ihre Adresse ein"
               />
