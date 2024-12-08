@@ -7,6 +7,7 @@ import { pickUpTimeLieferung } from "../../asset/data/data";
 import { pickUpTimeAbholung } from "../../asset/data/data";
 
 import { pickUpDate } from "../../asset/data/data";
+import { pickUpDateLiferung } from "../../asset/data/data";
 import { pickUpQuantity } from "../../asset/data/data";
 import "./CollectionForm.css";
 import CheckIcon from "../../asset/checkIcon.png";
@@ -14,9 +15,7 @@ import { data } from "autoprefixer";
 import moment from "moment";
 /* eslint-disable */
 
-
 const CustomerForm = () => {
-
   const [listOrder, setListOrder] = useState();
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState(false);
@@ -27,22 +26,22 @@ const CustomerForm = () => {
       last_name: "",
       email: "",
       phone: "",
-      pickupQuantity:"",
-      branch:"" ,
+      pickupQuantity: "",
+      branch: "",
 
-// Abholung :
-      wählenSieDieAdresseDesAbholung : "",
+      // Abholung :
+      wählenSieDieAdresseDesAbholung: "",
       gewünschterLieferterminAbholung: "",
       gewünschteLieferzeitAbholung: "",
 
-// liferung :
+      // liferung :
       titel: "",
       vornameLieferung: "",
       nachnameLieferung: "",
       startBeLieferung: "",
       hausnrLieferung: "",
       adresszusatzLieferung: "",
-      gewünschterLieferterminLieferung:"" ,
+      gewünschterLieferterminLieferung: "",
       gewünschteLieferzeitLieferung: "",
       plzLieferung: "",
       ortLieferung: "",
@@ -87,11 +86,16 @@ const CustomerForm = () => {
 
   const branches = [
     {
-      name: "Abholung", addresses: ["CôCô Indochine - Augustinerstraße 1, 90403 Nürnberg", " CôCô Sushi and Grill - Obstmarkt 3, 90762 Fürth", "CôCô Erlangen - Nürnberger Str. 31, 91052 Erlangen"]
-    },{
+      name: "Abholung",
+      addresses: [
+        "CôCô Indochine - Augustinerstraße 1, 90403 Nürnberg",
+        " CôCô Sushi and Grill - Obstmarkt 3, 90762 Fürth",
+        "CôCô Erlangen - Nürnberger Str. 31, 91052 Erlangen",
+      ],
+    },
+    {
       name: "Lieferung",
-    }
-
+    },
   ];
 
   // const handleRadioChange = (value) => {
@@ -132,10 +136,9 @@ const CustomerForm = () => {
     }
   };
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Add branch validation
     if (!formData.user.branch) {
       setBranchError("Bitte wählen Sie eine Lieferoption aus");
@@ -146,7 +149,7 @@ const CustomerForm = () => {
       console.log("Please accept all terms and conditions.");
       return;
     }
-    
+
     setLoading(true);
     // console.log('data :' ,data)
     console.log("data :", formData);
@@ -163,37 +166,41 @@ const CustomerForm = () => {
           phone: formData.user.phone,
           pickupQuantity: formData.user.pickupQuantity,
 
-          // option branch 
+          // option branch
           branch: formData.user.branch,
 
           // Abholung :
 
-          wählenSieDieAdresseDesAbholung: formData.user.wählenSieDieAdresseDesAbholung,
-          gewünschterLieferterminAbholung:formData.user.gewünschterLieferterminAbholung,
-          gewünschteLieferzeitAbholung:formData.user.gewünschteLieferzeitAbholung,
+          wählenSieDieAdresseDesAbholung:
+            formData.user.wählenSieDieAdresseDesAbholung,
+          gewünschterLieferterminAbholung:
+            formData.user.gewünschterLieferterminAbholung,
+          gewünschteLieferzeitAbholung:
+            formData.user.gewünschteLieferzeitAbholung,
 
           // liferung :
-          titel:formData.user.titel ,
-          vornameLieferung:formData.user.vornameLieferung ,
-          nachnameLieferung:formData.user.nachnameLieferung ,
-          startBeLieferung:formData.user.startBeLieferung ,
-          hausnrLieferung:formData.user.hausnrLieferung ,
-          adresszusatzLieferung:formData.user.adresszusatzLieferung ,
-          gewünschterLieferterminLieferung:formData.user.gewünschterLieferterminLieferung ,
-          gewünschteLieferzeitLieferung:formData.user.gewünschteLieferzeitLieferung ,
-          plzLieferung:formData.user.plzLieferung ,
-          ortLieferung:formData.user.ortLieferung ,
-
-
-        })
+          titel: formData.user.titel,
+          vornameLieferung: formData.user.vornameLieferung,
+          nachnameLieferung: formData.user.nachnameLieferung,
+          startBeLieferung: formData.user.startBeLieferung,
+          hausnrLieferung: formData.user.hausnrLieferung,
+          adresszusatzLieferung: formData.user.adresszusatzLieferung,
+          gewünschterLieferterminLieferung:
+            formData.user.gewünschterLieferterminLieferung,
+          gewünschteLieferzeitLieferung:
+            formData.user.gewünschteLieferzeitLieferung,
+          plzLieferung: formData.user.plzLieferung,
+          ortLieferung: formData.user.ortLieferung,
+        }
+      );
       console.log(data);
 
       setBoxAdd(true);
       setListOrder(data);
 
       setTimeout(() => {
-          setBoxAdd(false);
-          window.location.reload();
+        setBoxAdd(false);
+        window.location.reload();
       }, 3000);
     } catch (error) {
       // Handle error
@@ -430,16 +437,15 @@ const CustomerForm = () => {
           </div>
 
           {/* Hiển thị dropdown nếu chọn một chi nhánh cụ thể */}
-          {formData.user.branch == "Abholung"  && (
+          {formData.user.branch == "Abholung" && (
             <div className="flex flex-col gap-2 w-full mt-4">
               <label className=" text-textColor font-Montserrat text-lg">
-              Wählen Sie die Adresse des CôCô :
+                Wählen Sie die Adresse des CôCô :
               </label>
               <select
                 id="wählenSieDieAdresseDesAbholung"
                 name="wählenSieDieAdresseDesAbholung"
                 value={formData.user.wählenSieDieAdresseDesAbholung}
-                
                 onChange={handleChange}
                 required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
@@ -457,9 +463,9 @@ const CustomerForm = () => {
                   </option>
                 ))}
               </select>
-           
+
               <label className=" text-textColor font-Montserrat text-lg">
-              Gewünschter Liefertermin
+                Gewünschter Liefertermin
               </label>
               <select
                 id="gewünschterLieferterminAbholung"
@@ -478,13 +484,14 @@ const CustomerForm = () => {
                     key={index}
                     value={moment(item.date).format("DD.MM.YYYY")}
                   >
-                    {moment(item.date).format("DD.MM.YYYY")} {/* Định dạng ngày theo ý muốn */}
+                    {moment(item.date).format("DD.MM.YYYY")}{" "}
+                    {/* Định dạng ngày theo ý muốn */}
                   </option>
                 ))}
               </select>
 
               <label className=" text-textColor font-Montserrat text-lg">
-              Gewünschte Lieferzeit
+                Gewünschte Lieferzeit
               </label>
               <select
                 id="gewünschteLieferzeitAbholung"
@@ -495,7 +502,7 @@ const CustomerForm = () => {
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
               >
                 <option value="" disabled className="italic text-sm">
-                {/* Gewünschter Liefertermin */}
+                  {/* Gewünschter Liefertermin */}
                 </option>
                 {pickUpTimeAbholung.map((item, index) => (
                   <option
@@ -511,7 +518,7 @@ const CustomerForm = () => {
           )}
 
           {/* Hiển thị input nếu chọn "Lieferung" */}
-          {formData.user.branch == "Lieferung"  && (
+          {formData.user.branch == "Lieferung" && (
             <div className="flex flex-col gap-2 w-full mt-4">
               <label className=" text-textColor font-Montserrat text-lg">
                 Titel (optional) :
@@ -538,7 +545,7 @@ const CustomerForm = () => {
                 handleChange
                 required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-              // placeholder="Geben Sie Ihre Adresse ein"
+                // placeholder="Geben Sie Ihre Adresse ein"
               />
               <label className=" text-textColor font-Montserrat text-lg">
                 Nachname :
@@ -551,7 +558,7 @@ const CustomerForm = () => {
                 onChange={handleChange}
                 required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-              // placeholder="Geben Sie Ihre Adresse ein"
+                // placeholder="Geben Sie Ihre Adresse ein"
               />
               <label className=" text-textColor font-Montserrat text-lg">
                 Straße & Hausnr :
@@ -565,7 +572,7 @@ const CustomerForm = () => {
                   onChange={handleChange}
                   required
                   className="w-3/5  placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
+                  // placeholder="Geben Sie Ihre Adresse ein"
                 />
                 <input
                   type="text"
@@ -575,7 +582,33 @@ const CustomerForm = () => {
                   onChange={handleChange}
                   required
                   className="w-2/5 placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
+                  // placeholder="Geben Sie Ihre Adresse ein"
+                />
+              </div>
+
+              <label className=" text-textColor font-Montserrat text-lg">
+                PLZ & Ort :
+              </label>
+              <div className="flex items-center gap-5">
+                <input
+                  type="text"
+                  id="plzLieferung"
+                  name="plzLieferung"
+                  value={formData.user.plzLieferung}
+                  onChange={handleChange}
+                  required
+                  className="w-2/5  placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
+                  // placeholder="Geben Sie Ihre Adresse ein"
+                />
+                <input
+                  type="text"
+                  id="ortLieferung"
+                  name="ortLieferung"
+                  value={formData.user.ortLieferung}
+                  onChange={handleChange}
+                  required
+                  className="w-3/5 placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
+                  // placeholder="Geben Sie Ihre Adresse ein"
                 />
               </div>
               <label className=" text-textColor font-Montserrat text-lg">
@@ -590,34 +623,8 @@ const CustomerForm = () => {
                 onChange={handleChange}
                 required
                 className="placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-              // placeholder="Geben Sie Ihre Adresse ein"
+                // placeholder="Geben Sie Ihre Adresse ein"
               />
-
-<label className=" text-textColor font-Montserrat text-lg">
-                PLZ & ORT :
-              </label>
-              <div className="flex items-center gap-5">
-                <input
-                  type="text"
-                  id="plzLieferung"
-                  name="plzLieferung"
-                  value={formData.user.plzLieferung}
-                  onChange={handleChange}
-                  required
-                  className="w-2/5  placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
-                />
-                <input
-                  type="text"
-                  id="ortLieferung"
-                  name="ortLieferung"
-                  value={formData.user.ortLieferung}
-                  onChange={handleChange}
-                  required
-                  className="w-3/5 placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid border-textColor rounded-md focus:border-textColor focus:border-4 desktop:placeholder:text-xl desktop:text-xl desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl"
-                // placeholder="Geben Sie Ihre Adresse ein"
-                />
-              </div>
 
               <label className=" text-textColor font-Montserrat text-lg">
                 Gewünschter Liefertermin
@@ -633,13 +640,14 @@ const CustomerForm = () => {
                 <option value="" disabled className="italic text-sm">
                   {/* Abholdatum  */}
                 </option>
-                {pickUpDate.map((item, index) => (
+                {pickUpDateLiferung.map((item, index) => (
                   <option
                     className="text-sm text-textColor block"
                     key={index}
                     value={moment(item.date).format("DD.MM.YYYY")}
                   >
-                    {moment(item.date).format("DD.MM.YYYY")} {/* Định dạng ngày theo ý muốn */}
+                    {moment(item.date).format("DD.MM.YYYY")}{" "}
+                    {/* Định dạng ngày theo ý muốn */}
                   </option>
                 ))}
               </select>
@@ -669,8 +677,6 @@ const CustomerForm = () => {
                 ))}
               </select>
 
-           
-
               <label className=" text-textColor font-Montserrat text-lg">
                 Land{" "}
               </label>
@@ -679,8 +685,6 @@ const CustomerForm = () => {
               </label>
             </div>
           )}
-
-         
         </div>
         <div
           className="flex w-full font-Changa
@@ -711,8 +715,9 @@ const CustomerForm = () => {
               value={formData.user.discount}
               onChange={handleChange}
               // required
-              className={`w-[185px] placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid ${discount ? "border-red-500" : "border-textColor"
-                } rounded-lg focus:border-textColor focus:border-4
+              className={`w-[185px] placeholder:italic placeholder:text-sm placeholder:text-textColor bg-backGround text-textColor border-2 border-solid ${
+                discount ? "border-red-500" : "border-textColor"
+              } rounded-lg focus:border-textColor focus:border-4
                             desktop:placeholder:text-xl desktop:text-xl
                             desktopLarge:placeholder:text-3xl desktopLarge:py-4 desktopLarge:text-3xl
                         `}
@@ -744,7 +749,6 @@ const CustomerForm = () => {
               {discount && (
                 <div className="text-yellow-400 font-bold">
                   Ihr Vorteil bei dieser Bestellung{" "}
-                
                 </div>
               )}
             </>

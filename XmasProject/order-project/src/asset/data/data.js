@@ -33,6 +33,15 @@ export const pickUpDate = [
     // { date: new Date(2024, 11, 25) },
   ];
   
+  export const pickUpDateLiferung = [
+    { date: new Date(2024, 11, 1) }, // Tháng trong JS bắt đầu từ 0 (0 = Tháng 1, 11 = Tháng 12)
+    { date: new Date(2024, 11, 8) },
+    { date: new Date(2024, 11, 15) },
+    { date: new Date(2024, 11, 22) },
+    // { date: new Date(2024, 11, 24) },
+    // { date: new Date(2024, 11, 25) },
+  ];
+  
 
 export const pickUpTimeAbholung = [
     {
